@@ -1,6 +1,7 @@
 import type { GetServerSidePropsContext } from 'next'
 import { SitemapBuilder } from '../builders/sitemap-builder.js'
 import { withXMLResponseLegacy, withXMLResponse } from './response.js'
+import type { ISitemapField } from '../interface.js'
 
 /**
  * Generate index sitemaps on server side, support pages directory
@@ -27,11 +28,11 @@ export const getServerSideSitemapIndexLegacy = async (
  * @returns
  */
 export const getServerSideSitemapIndex = async (
-  sitemaps: string[],
+  sitemaps: ISitemapField[],
   headers = {}
 ) => {
   // Generate index sitemap xml content
-  const indexContents = new SitemapBuilder().buildSitemapIndexXml(sitemaps)
+  const indexContents = new SitemapBuilder().buildSitemapXml(sitemaps)
 
   // Return response
   return withXMLResponse(indexContents, headers)
